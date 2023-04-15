@@ -18,15 +18,8 @@ jobs:
             LATEST_VERSION=$(curl -sSL https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US | grep -oP 'data-version=\"\K[^\"]+')
             if [ "${{ steps.firefox-version.outputs.version }}" != "$LATEST_VERSION" ]; then
               echo "A new version of Firefox (${LATEST_VERSION}) is available."
-              echo "Sending email notification..."
-              echo "New version of Firefox (${LATEST_VERSION}) is available. Please update your browser." | mail -s "New version of Firefox available" youremail@example.com
+              echo "Please update your browser."
             else
               echo "You are using the latest version of Firefox (${LATEST_VERSION})."
             fi
           fi
-      - name: Notify on failure
-        if: failure()
-        uses: actions/notification@v1
-        with:
-          status: failure
-          message: "Firefox version check failed. Please check the logs for more information."
