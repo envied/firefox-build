@@ -1,0 +1,23 @@
+name: Check Firefox version
+on:
+  schedule:
+    - cron: '0 0 * * *' # Run daily at midnight UTC
+jobs:
+  check-firefox-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Get Firefox version
+        id: firefox-version
+        run: echo "::set-output name=version::$(curl -sSL https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US | grep -oP 'data-version=\"\K[^\"]+')"
+      - name: Compare Firefox version
+        run: |
+          if [ "$GITHUB_REF" = "refs/heads/main" ]; then
+            LATEST_VERSION=$(curl -sSL https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US | grep -oP 'data-version=\"\K[^\"]+')
+            if [ "${{ steps.firefox-version.outputs.version }}" != "$LATEST_VERSION" ]; then
+              echo "A new version of Firefox (${LATEST_VERSION}) is available."
+            else
+              echo "You are using the latest version of Firefox (${LATEST_VERSION})."
+            fi
+          fi
