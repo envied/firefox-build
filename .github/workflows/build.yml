@@ -4,29 +4,25 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   build:
+    name: Build Firefox Installer
     runs-on: windows-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up PowerShell
-      uses: actions/setup-powershell@v1
-      with:
-        pwsh-version: '7.0'
-        modules: 'Microsoft.PowerShell.7zstd'
-
-    - name: Run script
-      run: |
-        Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process
-        ./firefox-build.ps1
-
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: our_new_installer.exe
-        path: ./our_new_installer.exe
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Setup PowerShell
+        uses: microsoft/setup-powershell@v1.4.0
+      
+      - name: Build Firefox Installer
+        shell: pwsh
+        run: |
+          .\firefox-build.ps1
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: our_new_installer
+          path: .\our_new_installer.exe
