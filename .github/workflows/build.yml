@@ -33,6 +33,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: our_new_installer
-          path: ${{ env.tempDirectory }}/build/our_new_installer.exe
+          path: our_new_installer.exe
           if-no-files-found: warn
 
