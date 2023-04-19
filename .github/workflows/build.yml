@@ -11,7 +11,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install choco
         run: |
@@ -30,7 +30,7 @@ jobs:
           .\firefox-build.ps1
       
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: our_new_installer
           path: ${{ env.tempDirectory }}/build/our_new_installer.exe
