@@ -29,12 +29,10 @@ jobs:
         run: |
           .\firefox-build.ps1
       
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
         with:
           name: our_new_installer
-          path: our_new_installer.exe
+          path: ${{ env.tempDirectory }}
           if-no-files-found: warn
-        working-directory: ${{ env.tempDirectory }}
-
 
