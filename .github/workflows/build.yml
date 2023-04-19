@@ -33,6 +33,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: our_new_installer
-          path: ${{ env.tempDirectory }}
+          path: firefox-build
           if-no-files-found: warn
 
