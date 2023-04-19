@@ -33,6 +33,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: our_new_installer
-          path: our_new_installer.exe
+          path: build
           if-no-files-found: warn
 
