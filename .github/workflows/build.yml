@@ -12,6 +12,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Install choco
+        run: |
+          Set-ExecutionPolicy Bypass -Scope Process -Force
+          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072 #TLS 1.2
+          iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+      
+      - name: Install rclone
+        run: |
+          choco install rclone -y
+          refreshenv
       
       - name: Build Firefox Installer
         shell: pwsh
