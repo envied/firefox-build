@@ -25,7 +25,12 @@ jobs:
         run: |
           choco install rclone -y
           refreshenv
-      
+
+      - name: Install 7z
+        run: |
+          choco install 7zip.install-y
+          refreshenv
+
       - name: Build Firefox Installer
         shell: pwsh
         run: |
